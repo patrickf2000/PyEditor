@@ -86,6 +86,7 @@ class Window(QMainWindow):
 	def initMenus(self):
 		self.initFileMenu()
 		self.initEditMenu()
+		self.initViewMenu()
 
 ###########FileMenu#######################
 	def initFileMenu(self):
@@ -110,7 +111,7 @@ class Window(QMainWindow):
 		fileMenu.addAction(quitAction)
 		
 	def newActionClicked(self):
-		print("New file")
+		self.tabs.addNewUntitledTab()
 		
 	def openActionClicked(self):
 		FileActions.openFile(self.tabs)
@@ -146,6 +147,20 @@ class Window(QMainWindow):
 	def pasteActionClicked(self):
 		self.tabs.getCurrentWidget().paste()
 		
-##########################################
+##########View Menu#######################
+	def initViewMenu(self):
+		viewMenu = self.menuBar().addMenu("View")
+		
+		fullscreenAction = QAction(QIcon.fromTheme("view-fullscreen"),"Fullscreen",viewMenu)
+		fullscreenAction.triggered.connect(self.fullscreenActionClicked)
+		viewMenu.addAction(fullscreenAction)
+		
+	def fullscreenActionClicked(self):
+		if (self.isFullScreen()):
+			self.showNormal()
+		else:
+			self.showFullScreen()
+			
+
 
 
