@@ -20,6 +20,8 @@ class MainToolBar(QToolBar):
 		cutButton = QToolButton()
 		copyButton = QToolButton()
 		pasteButton = QToolButton()
+		undoButton = QToolButton()
+		redoButton = QToolButton()
 		
 		newButton.setIcon(QIcon.fromTheme("document-new"))
 		openButton.setIcon(QIcon.fromTheme("document-open"))
@@ -28,6 +30,8 @@ class MainToolBar(QToolBar):
 		cutButton.setIcon(QIcon.fromTheme("edit-cut"))
 		copyButton.setIcon(QIcon.fromTheme("edit-copy"))
 		pasteButton.setIcon(QIcon.fromTheme("edit-paste"))
+		undoButton.setIcon(QIcon.fromTheme("edit-undo"))
+		redoButton.setIcon(QIcon.fromTheme("edit-redo"))
 		
 		newButton.clicked.connect(self.newButtonClicked)
 		openButton.clicked.connect(self.openButtonClicked)
@@ -36,6 +40,8 @@ class MainToolBar(QToolBar):
 		cutButton.clicked.connect(self.cutButtonClicked)
 		copyButton.clicked.connect(self.copyButtonClicked)
 		pasteButton.clicked.connect(self.pasteButtonClicked)
+		undoButton.clicked.connect(self.undoButtonClicked)
+		redoButton.clicked.connect(self.redoButtonClicked)
 		
 		self.addWidget(newButton)
 		self.addWidget(openButton)
@@ -45,6 +51,8 @@ class MainToolBar(QToolBar):
 		self.addWidget(cutButton)
 		self.addWidget(copyButton)
 		self.addWidget(pasteButton)
+		self.addWidget(undoButton)
+		self.addWidget(redoButton)
 		
 	def newButtonClicked(self):
 		self.tabs.addNewUntitledTab()
@@ -69,5 +77,13 @@ class MainToolBar(QToolBar):
 	def pasteButtonClicked(self):
 		edit = self.tabs.getCurrentWidget()
 		edit.paste()
+		
+	def undoButtonClicked(self):
+		edit = self.tabs.getCurrentWidget()
+		edit.undo()
+		
+	def redoButtonClicked(self):
+		edit = self.tabs.getCurrentWidget()
+		edit.redo()
 
  
