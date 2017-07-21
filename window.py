@@ -85,6 +85,7 @@ class Window(QMainWindow):
 ##########################################
 	def initMenus(self):
 		self.initFileMenu()
+		self.initEditMenu()
 
 ###########FileMenu#######################
 	def initFileMenu(self):
@@ -120,5 +121,31 @@ class Window(QMainWindow):
 	def saveAsActionClicked(self):
 		FileActions.saveFileAs(self.tabs)
 
-###########End############################
+###########Edit Menu######################
+	def initEditMenu(self):
+		editMenu = self.menuBar().addMenu("Edit")
+		
+		cutAction = QAction(QIcon.fromTheme("edit-cut"),"Cut",editMenu)
+		copyAction = QAction(QIcon.fromTheme("edit-copy"),"Copy",editMenu)
+		pasteAction = QAction(QIcon.fromTheme("edit-paste"),"Paste",editMenu)
+		
+		cutAction.triggered.connect(self.cutActionClicked)
+		copyAction.triggered.connect(self.copyActionClicked)
+		pasteAction.triggered.connect(self.pasteActionClicked)
+		
+		editMenu.addAction(cutAction)
+		editMenu.addAction(copyAction)
+		editMenu.addAction(pasteAction)
+		
+	def cutActionClicked(self):
+		self.tabs.getCurrentWidget().cut()
+		
+	def copyActionClicked(self):
+		self.tabs.getCurrentWidget().copy()
+		
+	def pasteActionClicked(self):
+		self.tabs.getCurrentWidget().paste()
+		
+##########################################
+
 
