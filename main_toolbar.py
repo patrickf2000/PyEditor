@@ -33,6 +33,16 @@ class MainToolBar(QToolBar):
 		undoButton.setIcon(QIcon.fromTheme("edit-undo"))
 		redoButton.setIcon(QIcon.fromTheme("edit-redo"))
 		
+		newButton.setToolTip("New File")
+		openButton.setToolTip("Open File")
+		saveButton.setToolTip("Save File")
+		saveAsButton.setToolTip("Save File As")
+		cutButton.setToolTip("Cut")
+		copyButton.setToolTip("Copy")
+		pasteButton.setToolTip("Paste")
+		undoButton.setToolTip("Undo")
+		redoButton.setToolTip("Redo")
+		
 		newButton.clicked.connect(self.newButtonClicked)
 		openButton.clicked.connect(self.openButtonClicked)
 		saveButton.clicked.connect(self.saveButtonClicked)
