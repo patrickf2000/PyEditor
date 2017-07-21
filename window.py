@@ -1,11 +1,10 @@
 from PyQt5.QtWidgets import QMainWindow, QLabel
-from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtWidgets import QMessageBox, QAction, qApp
 from PyQt5.QtGui import QIcon
 
 from tabpane import TabPane
 from main_toolbar import MainToolBar
-
-from file_menu import FileMenu
+from file_actions import FileActions
 
 class Window(QMainWindow):
 	statusbar = 0
@@ -33,8 +32,7 @@ class Window(QMainWindow):
 		toolbar = MainToolBar(self.tabs)
 		self.addToolBar(toolbar)
 		
-		fileMenu = self.menuBar().addMenu("File")
-		FileMenu().initMenu(fileMenu,self.tabs)
+		self.initMenus()
 		
 	def setUnsaved(self):
 		self.savedLabel.setText("unsaved")
@@ -78,4 +76,49 @@ class Window(QMainWindow):
 		else:
 			event.ignore()
 			
+	def exitProgram(self):
+		if self.checkSave():
+			qApp.exit()
+			
+##########################################
+#			Menubar items                #
+##########################################
+	def initMenus(self):
+		self.initFileMenu()
+
+###########FileMenu#######################
+	def initFileMenu(self):
+		fileMenu = self.menuBar().addMenu("File")
+		
+		newAction = QAction(QIcon.fromTheme("document-new"),"New",fileMenu)
+		openAction = QAction(QIcon.fromTheme("document-open"),"Open",fileMenu)
+		saveAction = QAction(QIcon.fromTheme("document-save"),"Save",fileMenu)
+		saveAsAction = QAction(QIcon.fromTheme("document-save-as"),"Save As",fileMenu)
+		quitAction = QAction(QIcon.fromTheme("application-exit"),"Quit",fileMenu)
+		
+		newAction.triggered.connect(self.newActionClicked)
+		openAction.triggered.connect(self.openActionClicked)
+		saveAction.triggered.connect(self.saveActionClicked)
+		saveAsAction.triggered.connect(self.saveAsActionClicked)
+		quitAction.triggered.connect(self.exitProgram)
+		
+		fileMenu.addAction(newAction)
+		fileMenu.addAction(openAction)
+		fileMenu.addAction(saveAction)
+		fileMenu.addAction(saveAsAction)
+		fileMenu.addAction(quitAction)
+		
+	def newActionClicked(self):
+		print("New file")
+		
+	def openActionClicked(self):
+		FileActions.openFile(self.tabs)
+		
+	def saveActionClicked(self):
+		FileActions.saveFile(self.tabs)
+		
+	def saveAsActionClicked(self):
+		FileActions.saveFileAs(self.tabs)
+
+###########End############################
 
