@@ -1,19 +1,33 @@
 #!/usr/bin/python3
 from os import getenv
 from os.path import exists
-from gen_settings import generate_settings
 from xml_parser import XmlParser
+import gen_settings
+import platform
 
 class Settings():
 	settingsPath = str("")
 	parser = 0
 	
-	def __init__(self):
+	def winPath(self):
+		path = str(getenv("USERPROFILE"))
+		path+=str("\.py-editor\settings.xml")
+		return path
+		
+	def unixPath(self):
 		path = str(getenv("HOME"))
-		path+=str("/.cpp-editor/settings.xml")
+		path+=str("/.py-editor/settings.xml")
+		return path
+	
+	def __init__(self):
+		path = str("")
+		if (platform.system()=="Windows"):
+			path = self.winPath()
+		else:
+			path = self.unixPath()
 		self.settingsPath = path
-		if (exists(path)==False):
-			generate_settings()
+		if (exists(str(path))==False):
+			gen_settings.generate_settings()
 		self.parser = XmlParser(path)
 			
 	def getSetting(self, ID, defaultSetting):
