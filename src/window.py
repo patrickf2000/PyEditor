@@ -102,6 +102,7 @@ class Window(QMainWindow):
 		self.initFileMenu()
 		self.initEditMenu()
 		self.initViewMenu()
+		self.initHelpMenu()
 
 ###########FileMenu#######################
 	def initFileMenu(self):
@@ -175,7 +176,25 @@ class Window(QMainWindow):
 			self.showNormal()
 		else:
 			self.showFullScreen()
-			
+
+#########Help Menu########################
+	def initHelpMenu(self):
+		helpMenu = self.menuBar().addMenu("Help")
+		
+		aboutQt = QAction("About Qt",helpMenu)
+		about = QAction("About",helpMenu)
+		
+		aboutQt.triggered.connect(qApp.aboutQt)
+		about.triggered.connect(self.aboutActionClicked)
+		
+		helpMenu.addAction(aboutQt)
+		helpMenu.addAction(about)
+		
+	def aboutActionClicked(self):
+		QMessageBox.information(self,"About PyEditor",
+			str("\tPyEditor\n\nPyEditor is a simple browser"+
+				"written in Python. It uses Python 3 and PyQt5."),
+			)
 
 
 
