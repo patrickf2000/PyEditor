@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import (
 	QToolBar,
 	QToolButton)
-from PyQt5.QtGui import QIcon
+from get_icon import GetIcon
 from tabpane import TabPane
 from file_actions import FileActions
 
@@ -20,14 +20,28 @@ class MainToolBar(QToolBar):
 		cutButton = QToolButton()
 		copyButton = QToolButton()
 		pasteButton = QToolButton()
+		undoButton = QToolButton()
+		redoButton = QToolButton()
 		
-		newButton.setIcon(QIcon.fromTheme("document-new"))
-		openButton.setIcon(QIcon.fromTheme("document-open"))
-		saveButton.setIcon(QIcon.fromTheme("document-save"))
-		saveAsButton.setIcon(QIcon.fromTheme("document-save-as"))
-		cutButton.setIcon(QIcon.fromTheme("edit-cut"))
-		copyButton.setIcon(QIcon.fromTheme("edit-copy"))
-		pasteButton.setIcon(QIcon.fromTheme("edit-paste"))
+		newButton.setIcon(GetIcon.asQIcon("document-new"))
+		openButton.setIcon(GetIcon.asQIcon("document-open"))
+		saveButton.setIcon(GetIcon.asQIcon("document-save"))
+		saveAsButton.setIcon(GetIcon.asQIcon("document-save-as"))
+		cutButton.setIcon(GetIcon.asQIcon("edit-cut"))
+		copyButton.setIcon(GetIcon.asQIcon("edit-copy"))
+		pasteButton.setIcon(GetIcon.asQIcon("edit-paste"))
+		undoButton.setIcon(GetIcon.asQIcon("edit-undo"))
+		redoButton.setIcon(GetIcon.asQIcon("edit-redo"))
+		
+		newButton.setToolTip("New File")
+		openButton.setToolTip("Open File")
+		saveButton.setToolTip("Save File")
+		saveAsButton.setToolTip("Save File As")
+		cutButton.setToolTip("Cut")
+		copyButton.setToolTip("Copy")
+		pasteButton.setToolTip("Paste")
+		undoButton.setToolTip("Undo")
+		redoButton.setToolTip("Redo")
 		
 		newButton.clicked.connect(self.newButtonClicked)
 		openButton.clicked.connect(self.openButtonClicked)
@@ -36,6 +50,8 @@ class MainToolBar(QToolBar):
 		cutButton.clicked.connect(self.cutButtonClicked)
 		copyButton.clicked.connect(self.copyButtonClicked)
 		pasteButton.clicked.connect(self.pasteButtonClicked)
+		undoButton.clicked.connect(self.undoButtonClicked)
+		redoButton.clicked.connect(self.redoButtonClicked)
 		
 		self.addWidget(newButton)
 		self.addWidget(openButton)
@@ -45,6 +61,8 @@ class MainToolBar(QToolBar):
 		self.addWidget(cutButton)
 		self.addWidget(copyButton)
 		self.addWidget(pasteButton)
+		self.addWidget(undoButton)
+		self.addWidget(redoButton)
 		
 	def newButtonClicked(self):
 		self.tabs.addNewUntitledTab()
@@ -69,5 +87,13 @@ class MainToolBar(QToolBar):
 	def pasteButtonClicked(self):
 		edit = self.tabs.getCurrentWidget()
 		edit.paste()
+		
+	def undoButtonClicked(self):
+		edit = self.tabs.getCurrentWidget()
+		edit.undo()
+		
+	def redoButtonClicked(self):
+		edit = self.tabs.getCurrentWidget()
+		edit.redo()
 
  
