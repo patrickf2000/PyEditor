@@ -182,7 +182,7 @@ class Window(QMainWindow):
 		helpMenu = self.menuBar().addMenu("Help")
 		
 		aboutQt = QAction("About Qt",helpMenu)
-		about = QAction("About",helpMenu)
+		about = QAction(GetIcon.asQIcon("help-about"),"About",helpMenu)
 		
 		aboutQt.triggered.connect(qApp.aboutQt)
 		about.triggered.connect(self.aboutActionClicked)
