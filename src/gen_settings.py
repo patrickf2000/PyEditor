@@ -43,5 +43,3 @@ def generate_settings():
 		genWindows(content)
 	else:
 		genLinux(content)
-		
-generate_settings()

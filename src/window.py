@@ -6,16 +6,22 @@ from get_icon import GetIcon
 from tabpane import TabPane
 from main_toolbar import MainToolBar
 from file_actions import FileActions
+from settings import Settings
 
 class Window(QMainWindow):
 	statusbar = 0
 	savedLabel = 0
 	pathLabel = 0
 	tabs = 0
+	setting = 0
 
 	def __init__(self):
 		super().__init__()
-		self.resize(600,500)
+		self.setting = Settings()
+		winX = self.setting.getSetting("window/winX","600")
+		winY = self.setting.getSetting("window/winY","500")
+		
+		self.resize(int(winX),int(winY))
 		self.setWindowTitle("PyEditor")
 		self.setWindowIcon(GetIcon.asQIcon("text-editor"))
 		
@@ -71,14 +77,22 @@ class Window(QMainWindow):
 				ok = False
 		return ok
 		
+	def saveSettings(self):
+		winX = self.width()
+		winY = self.height()
+		self.setting.writeSetting("window/winX",str(winX))
+		self.setting.writeSetting("window/winY",str(winY))
+		
 	def closeEvent(self,event):
 		if self.checkSave():
+			self.saveSettings()
 			event.accept()
 		else:
 			event.ignore()
 			
 	def exitProgram(self):
 		if self.checkSave():
+			self.saveSettings()
 			qApp.exit()
 			
 ##########################################
