@@ -22,6 +22,8 @@ def genLinux(content):
 	path = str(getenv("HOME"))
 	path+=str("/.py-editor/settings.xml")
 	
+	makedirs(os.path.dirname(path),exist_ok=True)
+	
 	with open(path,"w") as writer:
 		writer.write(content)
 		
