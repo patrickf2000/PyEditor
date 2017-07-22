@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QMainWindow, QLabel
 from PyQt5.QtWidgets import QMessageBox, QAction, qApp
 from PyQt5.QtGui import QIcon
 
+from get_icon import GetIcon
 from tabpane import TabPane
 from main_toolbar import MainToolBar
 from file_actions import FileActions
@@ -16,7 +17,7 @@ class Window(QMainWindow):
 		super().__init__()
 		self.resize(600,500)
 		self.setWindowTitle("PyEditor")
-		self.setWindowIcon(QIcon.fromTheme("accessories-text-editor"))
+		self.setWindowIcon(GetIcon.asQIcon("text-editor"))
 		
 		self.statusbar = self.statusBar()
 		
@@ -92,11 +93,11 @@ class Window(QMainWindow):
 	def initFileMenu(self):
 		fileMenu = self.menuBar().addMenu("File")
 		
-		newAction = QAction(QIcon.fromTheme("document-new"),"New",fileMenu)
-		openAction = QAction(QIcon.fromTheme("document-open"),"Open",fileMenu)
-		saveAction = QAction(QIcon.fromTheme("document-save"),"Save",fileMenu)
-		saveAsAction = QAction(QIcon.fromTheme("document-save-as"),"Save As",fileMenu)
-		quitAction = QAction(QIcon.fromTheme("application-exit"),"Quit",fileMenu)
+		newAction = QAction(GetIcon.asQIcon("document-new"),"New",fileMenu)
+		openAction = QAction(GetIcon.asQIcon("document-open"),"Open",fileMenu)
+		saveAction = QAction(GetIcon.asQIcon("document-save"),"Save",fileMenu)
+		saveAsAction = QAction(GetIcon.asQIcon("document-save-as"),"Save As",fileMenu)
+		quitAction = QAction(GetIcon.asQIcon("application-exit"),"Quit",fileMenu)
 		
 		newAction.triggered.connect(self.newActionClicked)
 		openAction.triggered.connect(self.openActionClicked)
@@ -126,9 +127,9 @@ class Window(QMainWindow):
 	def initEditMenu(self):
 		editMenu = self.menuBar().addMenu("Edit")
 		
-		cutAction = QAction(QIcon.fromTheme("edit-cut"),"Cut",editMenu)
-		copyAction = QAction(QIcon.fromTheme("edit-copy"),"Copy",editMenu)
-		pasteAction = QAction(QIcon.fromTheme("edit-paste"),"Paste",editMenu)
+		cutAction = QAction(GetIcon.asQIcon("edit-cut"),"Cut",editMenu)
+		copyAction = QAction(GetIcon.asQIcon("edit-copy"),"Copy",editMenu)
+		pasteAction = QAction(GetIcon.asQIcon("edit-paste"),"Paste",editMenu)
 		
 		cutAction.triggered.connect(self.cutActionClicked)
 		copyAction.triggered.connect(self.copyActionClicked)
@@ -151,7 +152,7 @@ class Window(QMainWindow):
 	def initViewMenu(self):
 		viewMenu = self.menuBar().addMenu("View")
 		
-		fullscreenAction = QAction(QIcon.fromTheme("view-fullscreen"),"Fullscreen",viewMenu)
+		fullscreenAction = QAction(GetIcon.asQIcon("view-fullscreen"),"Fullscreen",viewMenu)
 		fullscreenAction.triggered.connect(self.fullscreenActionClicked)
 		viewMenu.addAction(fullscreenAction)
 		
