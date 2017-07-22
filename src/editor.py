@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QPlainTextEdit
 from PyQt5.QtGui import QFontMetrics
 from PyQt5.QtGui import QKeyEvent
 from PyQt5.QtCore import Qt
+from settings import Settings
 
 class Editor(QPlainTextEdit):
 	filePath = str("")
@@ -43,6 +44,14 @@ class Editor(QPlainTextEdit):
 		self.parent.setSaved()
 		
 	def keyPressEvent(self,event):
+		setting = Settings()
+		result = setting.getSetting("editor/autoindent","true")
+		if (result=="true"):
+			self.autoIndent(event)
+		else:
+			super().keyPressEvent(event)
+		
+	def autoIndent(self,event):
 		if ((event.key()==Qt.Key_Enter)or(event.key()==Qt.Key_Return)):
 			lastLine = self.document().findBlockByNumber(self.textCursor().blockNumber()).text();
 			tabCount = 0

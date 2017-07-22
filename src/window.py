@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QMainWindow, QLabel
-from PyQt5.QtWidgets import QMessageBox, QAction, qApp
+from PyQt5.QtWidgets import QMessageBox, QAction
+from PyQt5.QtWidgets import QMenu, qApp
 from PyQt5.QtGui import QIcon
 
 from get_icon import GetIcon
@@ -102,6 +103,7 @@ class Window(QMainWindow):
 		self.initFileMenu()
 		self.initEditMenu()
 		self.initViewMenu()
+		self.initSettingsMenu()
 		self.initHelpMenu()
 
 ###########FileMenu#######################
@@ -176,6 +178,28 @@ class Window(QMainWindow):
 			self.showNormal()
 		else:
 			self.showFullScreen()
+			
+#########Settings Menu####################
+	def initSettingsMenu(self):
+		settingsMenu = self.menuBar().addMenu("Settings")
+		
+		editorSub = settingsMenu.addMenu("Editor")
+		
+		autoIndent = QAction("Autoindent",editorSub)
+		autoIndent.setCheckable(True)
+		bool = self.setting.getSetting("editor/autoindent","true")
+		if (bool=="true"):
+			autoIndent.setChecked(True)
+		else:
+			autoIndent.setChecked(False)
+		
+		autoIndent.triggered.connect(self.autoIndentTriggered)
+		
+		editorSub.addAction(autoIndent)
+		
+	def autoIndentTriggered(self,checked):
+		bool = str(checked).lower()
+		self.setting.writeSetting("editor/autoindent",bool)
 
 #########Help Menu########################
 	def initHelpMenu(self):
