@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import (
 	QToolBar,
 	QToolButton)
-from PyQt5.QtGui import QIcon
+from get_icon import GetIcon
 from tabpane import TabPane
 from file_actions import FileActions
 
@@ -23,15 +23,15 @@ class MainToolBar(QToolBar):
 		undoButton = QToolButton()
 		redoButton = QToolButton()
 		
-		newButton.setIcon(QIcon.fromTheme("document-new"))
-		openButton.setIcon(QIcon.fromTheme("document-open"))
-		saveButton.setIcon(QIcon.fromTheme("document-save"))
-		saveAsButton.setIcon(QIcon.fromTheme("document-save-as"))
-		cutButton.setIcon(QIcon.fromTheme("edit-cut"))
-		copyButton.setIcon(QIcon.fromTheme("edit-copy"))
-		pasteButton.setIcon(QIcon.fromTheme("edit-paste"))
-		undoButton.setIcon(QIcon.fromTheme("edit-undo"))
-		redoButton.setIcon(QIcon.fromTheme("edit-redo"))
+		newButton.setIcon(GetIcon.asQIcon("document-new"))
+		openButton.setIcon(GetIcon.asQIcon("document-open"))
+		saveButton.setIcon(GetIcon.asQIcon("document-save"))
+		saveAsButton.setIcon(GetIcon.asQIcon("document-save-as"))
+		cutButton.setIcon(GetIcon.asQIcon("edit-cut"))
+		copyButton.setIcon(GetIcon.asQIcon("edit-copy"))
+		pasteButton.setIcon(GetIcon.asQIcon("edit-paste"))
+		undoButton.setIcon(GetIcon.asQIcon("edit-undo"))
+		redoButton.setIcon(GetIcon.asQIcon("edit-redo"))
 		
 		newButton.setToolTip("New File")
 		openButton.setToolTip("Open File")
