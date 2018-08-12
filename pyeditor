@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [ -d /usr/local/lib/pyeditor ] ; then
+	/usr/local/lib/pyeditor/main.py
+elif [ -d /usr/lib/pyeditor ] ; then
+	/usr/lib/pyeditor/main.py
+else
+	echo "Error: Could not found PyEditor."
+	echo "It should be installed in one of the locations below:"
+	echo "/usr/local/lib/pyeditor"
+	echo "/usr/lib/pyeditor"
+	exit 1
+fi
