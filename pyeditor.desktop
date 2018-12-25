@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=PyEditor
+Exec=pyeditor %U
+Icon=accessories-text-editor
+MimeType=text/plain;
+Type=Application
